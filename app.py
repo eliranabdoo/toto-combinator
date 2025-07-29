@@ -27,7 +27,7 @@ class CalculationParams:
     relaxation: int
 
 class MatrixApp:
-    def __init__(self, root, columns_count: int = 12):
+    def __init__(self, root):
         self.root = root
         self.root.title("מחשבון קומבינציות")
         self.root.geometry("500x600")
@@ -38,7 +38,6 @@ class MatrixApp:
         style.theme_use('clam')
         
         self.file_path = None
-        self.columns_count = columns_count
         
         # Main container
         main_frame = tk.Frame(root, bg='#f0f0f0', padx=20, pady=20)
@@ -144,9 +143,13 @@ class MatrixApp:
         self.n_var.set(n)
 
     @staticmethod
-    def load_matrix_from_excel(file_path, columns_count: int) -> np.ndarray: 
+    def load_matrix_from_excel(file_path) -> np.ndarray: 
         df = pd.read_excel(file_path, header=None)
-        df = df.iloc[:, :columns_count].dropna().astype(int)
+        c = df.isna().iloc[:, 0]
+        r = df.isna().iloc[0]
+        c_min = r[r].index[0] if sum(r) > 0 else None
+        r_min = c[c].index[0] if sum(c) > 0 else None
+        df = df.iloc[:r_min, :c_min].dropna().astype(int)
         return df.values
 
     @staticmethod
@@ -232,19 +235,18 @@ class MatrixApp:
         chosen_rows_range = None
 
         if params.relaxation > 0:
-            raise NotImplementedError("We don't suppor relaxation for aggregative mode")
+            raise NotImplementedError("כרגע אין תמיכה בקפיצות במצב חישוב סיכומי")
         k = params.n
         for combo_indices in combinations(range(matrix.shape[1]), k):
             sums: np.ndarray = matrix[:, combo_indices].sum(axis=1)
             counts = np.bincount(sums)
-            max_i = np.argmax(counts)
-            max_s = sums[max_i]
-            max_count = counts[max_i]
+            max_s = np.argmax(counts)
+            max_count = counts[max_s]
 
             if max_count > max_sum_count:
                 max_sum_count = max_count
                 chosen_columns = combo_indices
-                chosen_rows = sorted(np.nonzero((sums == max_s)))
+                chosen_rows = sorted(list(np.nonzero((sums == max_s)))[0])
                 chosen_rows_range = [(max_s, max_s)]
         
         return chosen_columns, chosen_rows, chosen_rows_range
@@ -275,7 +277,7 @@ class MatrixApp:
             messagebox.showerror("Error", "בחר קובץ אקסל")
             return
         try:
-            matrix = self.load_matrix_from_excel(self.file_path, columns_count=self.columns_count)
+            matrix = self.load_matrix_from_excel(self.file_path)
             n = self.n_var.get()
             mode_str = self.mode_var.get()
             try:
@@ -307,7 +309,6 @@ class MatrixApp:
                     if params.mode == ProcessingMode.SEPARATE:
                         f.write(f"טווחי פגיעה לכל עמודה: {chosen_ranges_strs}\n")    
                     elif params.mode == ProcessingMode.AGGREGATIVE:
-                        assert len(chosen_ranges_strs) == 1
                         f.write(f"טווח סיכומי: {chosen_ranges_strs}\n")
                 messagebox.showinfo("Success", f"Result saved to {output_path}")
         except Exception as e:
