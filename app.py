@@ -1,13 +1,13 @@
-from functools import reduce
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import numpy as np
 import pandas as pd
 import os
 from dataclasses import dataclass
-from typing import List, Set, Tuple
-from enum import Enum, auto
+from typing import List, Tuple
+from enum import Enum
 from itertools import combinations, groupby, product
+from datetime import datetime
 
 class ProcessingMode(Enum):
     AGGREGATIVE = "סיכומי"
@@ -162,7 +162,6 @@ class MatrixApp:
     def max_k_representative_intersection(groups, k) -> Tuple[list[int], list[int]]:
         max_intersection_size = -1
         best_intersection = None
-        best_selected_subsets = None
         best_group_indices = None
 
         # All combinations of k groups out of N
@@ -171,11 +170,21 @@ class MatrixApp:
             # All ways to pick one subset from each selected group
             for choice in product(*[range(len(g)) for g in selected_groups]):
                 selected_subsets = [selected_groups[i][choice[i]] for i in range(k)]
-                current_intersection = reduce(set.intersection, selected_subsets[1:], selected_subsets[0])
+                current_intersection = selected_subsets[0]
+                if len(current_intersection) <= max_intersection_size:
+                    continue
+                for i, subset in enumerate(selected_subsets):
+                    current_intersection = current_intersection.intersection(subset)
+                    if len(current_intersection) <= max_intersection_size:
+                        break
+                
+                exhausted = (i == (len(selected_subsets) - 1))
+                if not exhausted:
+                    continue
+                
                 if len(current_intersection) > max_intersection_size:
                     max_intersection_size = len(current_intersection)
                     best_intersection = current_intersection
-                    best_selected_subsets = selected_subsets
                     best_group_indices = group_indices
                     
         return sorted(best_group_indices), sorted(best_intersection)
@@ -278,8 +287,7 @@ class MatrixApp:
             params = CalculationParams(n=n, mode=mode, relaxation=relaxation)
             result = self.run_calculation(matrix, params)
 
-            base_input_path, extension = os.path.splitext(self.file_path)
-            from datetime import datetime
+            base_input_path, _ = os.path.splitext(self.file_path)
             time_addition = datetime.strftime(datetime.now(), format="%Y%m%d_%H%M%S")
             base_output_path = base_input_path + f"_output_{time_addition}"
             default_output_path = base_output_path + ".txt"
