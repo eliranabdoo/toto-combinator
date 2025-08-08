@@ -9,6 +9,7 @@ from enum import Enum
 from itertools import combinations, groupby, product
 from datetime import datetime
 import heapq
+from openpyxl.styles import PatternFill, Font
 
 class ProcessingMode(Enum):
     AGGREGATIVE = "סיכומי"
@@ -109,6 +110,19 @@ class MatrixApp:
         self.n_entry = tk.Entry(n_frame, textvariable=self.n_var, 
                                font=('Arial', 9), width=10)
         self.n_entry.pack(anchor='w', pady=(5, 0))
+
+        # Top K configurations
+        topk_frame = tk.Frame(params_frame, bg='#f0f0f0')
+        topk_frame.pack(fill='x', pady=(0, 10))
+        
+        self.topk_label = tk.Label(topk_frame, text="מספר תצורות להצגה (טופ K)", 
+                       bg='#f0f0f0', font=('Arial', 9))
+        self.topk_label.pack(anchor='w')
+        
+        self.topk_var = tk.IntVar(value=1)
+        self.topk_entry = tk.Entry(topk_frame, textvariable=self.topk_var, 
+                       font=('Arial', 9), width=10)
+        self.topk_entry.pack(anchor='w', pady=(5, 0))
         # self.n_entry.bind('<KeyRelease>', self.on_n_change)
 
         # Relaxation number
@@ -306,6 +320,7 @@ class MatrixApp:
         try:
             matrix = self.load_matrix_from_excel(self.file_path)
             n = self.n_var.get()
+            top_k = self.topk_var.get()
             mode_str = self.mode_var.get()
             try:
                 mode = ProcessingMode(mode_str)
@@ -313,17 +328,13 @@ class MatrixApp:
                 messagebox.showerror("Error", f"Invalid processing mode: {mode_str}")
                 return
             relaxation = self.relax_var.get()
-            params = CalculationParams(n=n, mode=mode, relaxation=relaxation)
+            params = CalculationParams(n=n, mode=mode, relaxation=relaxation, top_k=top_k)
             results = self.run_calculation(matrix, params)
 
             toto_results = [calculation_to_toto_result(res) for res in results]
 
-            base_input_path, _ = os.path.splitext(self.file_path)
-            time_addition = datetime.strftime(datetime.now(), format="%Y%m%d_%H%M%S")
-            base_output_path = base_input_path + f"_output_{time_addition}"
-            default_output_path = base_output_path + ".txt"
-            output_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")], title="שמירת תוצאה", initialfile=default_output_path)
 
+            topk_colname = f"טופ {params.top_k}"
 
             metadata_df = pd.DataFrame(data={
                 "כמות עמודות": [params.n],
@@ -332,28 +343,80 @@ class MatrixApp:
                 "כמות מחזורים מקסימלית": [len(toto_results[-1].mahzorim) if toto_results else 0],
             })
 
-
             data_df = pd.DataFrame(data={
                 "מספר פעמים": [len(result.mahzorim) for result in toto_results],
-                f"טופ {params.top_k}": [i+1 for i in range(params.top_k)],
+                topk_colname: [i+1 for i in range(params.top_k)],
                 "עמודות": [result.turim for result in toto_results],
                 "טווחים": [result.tvachim for result in toto_results],
                 "מחזורים": [result.mahzorim for result in toto_results],
                 "סיכום": [result.sikum for result in toto_results],
             })
 
+            # Change output file extension to xlsx
+            base_input_path, _ = os.path.splitext(self.file_path)
+            time_addition = datetime.strftime(datetime.now(), format="%Y%m%d_%H%M%S")
+            base_output_path = base_input_path + f"_output_{time_addition}"
+            default_output_path = base_output_path + ".xlsx"
+            output_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Excel files", "*.xlsx")], title="שמירת תוצאה", initialfile=default_output_path)
             if output_path:
-                with open(output_path, 'w', encoding="utf-8") as f:
-                    f.write(f"כמות עמודות: {params.n}\n")
-                    f.write(f"מצב חישוב: {params.mode.value}\n")
-                    f.write(f"מספר קפיצות מקסימלי: {params.relaxation}\n")
-                    f.write(f"כמות מחזורים: {len(chosen_fixtures)}\n")
-                    f.write(f"עמודות נבחרות: {chosen_configuratios}\n")
-                    f.write(f"מחזורים נבחרים: {chosen_fixtures}\n")
+                # Create Excel file with openpyxl engine
+                with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+                    # If processing mode is SEPARATE, remove 'סיכום' column
                     if params.mode == ProcessingMode.SEPARATE:
-                        f.write(f"טווחי פגיעה לכל עמודה: {chosen_ranges_strs}\n")    
-                    elif params.mode == ProcessingMode.AGGREGATIVE:
-                        f.write(f"טווח סיכומי: {chosen_ranges_strs}\n")
+                        if 'סיכום' in data_df.columns:
+                            data_df = data_df.drop(columns=['סיכום'])
+                    
+                    # Write metadata first
+                    metadata_df.to_excel(writer, sheet_name='Sheet1', index=False, startrow=0, startcol=0)
+                    
+                    # Get the workbook and active sheet
+                    worksheet = writer.sheets['Sheet1']
+                    
+                    # Style the metadata table with red background and bold font
+                    red_fill = PatternFill(start_color="FFFF0000", end_color="FFFF0000", fill_type="solid")
+                    bold_font = Font(bold=True)
+                    
+                    # Apply styling to metadata table (headers and data)
+                    for row in range(1, metadata_df.shape[0] + 2):
+                        for col in range(1, metadata_df.shape[1] + 1):
+                            cell = worksheet.cell(row=row, column=col)
+                            cell.fill = red_fill
+                            cell.font = bold_font
+                    
+                    # Calculate starting row for data table (metadata rows + 2 blank rows)
+                    data_start_row = metadata_df.shape[0] + 3
+
+
+                    value_cols = ["מספר פעמים", topk_colname] + ["סיכום"] if params.mode == ProcessingMode.AGGREGATIVE else []
+                    list_cols = ["עמודות", "מחזורים"]
+
+                    num_entries = len(data_df)
+
+                    for value_col in value_cols:
+                        if value_col == "מספר פעמים":
+                            for row in range(data_start_row, data_start_row + num_entries):
+                                cell = worksheet.cell(row=row, column=2)
+                                cell.value = data_df.at[row - data_start_row, "מספר פעמים"]
+                        elif value_col == topk_colname:
+                            for row in range(data_start_row, data_start_row + num_entries):
+                                cell = worksheet.cell(row=row, column=3)
+                                cell.value = data_df.at[row - data_start_row, topk_colname]
+                        elif value_col == "סיכום":
+                            for row in range(data_start_row, data_start_row + num_entries):
+                                cell = worksheet.cell(row=row, column=4)
+                                cell.value = data_df.at[row - data_start_row, "סיכום"]
+
+                    for list_col in list_cols:
+                        col_width = data_df[list_col].map(len).max()
+                        
+                        if list_col == "עמודות":
+                            for row in range(data_start_row, data_start_row + num_entries):
+                                cell = worksheet.cell(row=row, column=5)
+                                cell.value = data_df.at[row - data_start_row, "עמודות"]
+                        elif list_col == "מחזורים":
+                            for row in range(data_start_row, data_start_row + num_entries):
+                                cell = worksheet.cell(row=row, column=6)
+                                cell.value = data_df.at[row - data_start_row, "מחזורים"]
                 messagebox.showinfo("Success", f"Result saved to {output_path}")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to process file: {e}")
