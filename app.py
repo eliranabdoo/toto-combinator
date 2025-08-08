@@ -4,15 +4,22 @@ import numpy as np
 import pandas as pd
 import os
 from dataclasses import dataclass
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 from enum import Enum
 from itertools import combinations, groupby, product
 from datetime import datetime
+import heapq
 
 class ProcessingMode(Enum):
     AGGREGATIVE = "סיכומי"
     SEPARATE = "נפרד"
 
+@dataclass
+class TotoResult:
+    turim: List[int]
+    mahzorim: List[int]
+    tvachim: List[str]
+    sikum: Optional[int]
 
 @dataclass
 class CalculationResult:
@@ -20,11 +27,26 @@ class CalculationResult:
     chosen_rows: List[int]
     chosen_columns: List[int]
 
+
+def calculation_to_toto_result(calculation_result: CalculationResult) -> TotoResult:
+    sikum = None
+    if all([p[1] == p[0] for p in calculation_result.chosen_columns_ranges]):
+        sikum = sum([p[0] for p in calculation_result.chosen_columns_ranges])
+    return TotoResult(
+        turim=[c+1 for c in calculation_result.chosen_columns],
+        mahzorim=[r+1 for r in calculation_result.chosen_rows],
+        tvachim=[
+            f"{start+1}-{end+1}" if start != end else str(start+1) for start, end in calculation_result.chosen_columns_ranges
+        ],
+        sikum=sikum
+    )
+
 @dataclass
 class CalculationParams:
     n: int
     mode: ProcessingMode
     relaxation: int
+    top_k: int
 
 class MatrixApp:
     def __init__(self, root):
@@ -162,38 +184,34 @@ class MatrixApp:
         return filtered_columns
     
     @staticmethod
-    def max_k_representative_intersection(groups, k) -> Tuple[list[int], list[int]]:
-        max_intersection_size = -1
-        best_intersection = None
-        best_group_indices = None
+    def max_n_representative_intersection(groups, n, top_k=1) -> List[Tuple[list[int], list[int]]]:
 
-        # All combinations of k groups out of N
-        for group_indices in combinations(range(len(groups)), k):
+        heap = []
+
+        # All combinations of n groups out of N
+        for group_indices in combinations(range(len(groups)), n):
             selected_groups = [groups[i] for i in group_indices]
             # All ways to pick one subset from each selected group
             for choice in product(*[range(len(g)) for g in selected_groups]):
-                selected_subsets = [selected_groups[i][choice[i]] for i in range(k)]
+                selected_subsets = [selected_groups[i][choice[i]] for i in range(n)]
                 current_intersection = selected_subsets[0]
-                if len(current_intersection) <= max_intersection_size:
-                    continue
-                for i, subset in enumerate(selected_subsets):
+                for subset in selected_subsets[1:]:
                     current_intersection = current_intersection.intersection(subset)
-                    if len(current_intersection) <= max_intersection_size:
-                        break
-                
-                exhausted = (i == (len(selected_subsets) - 1))
-                if not exhausted:
-                    continue
-                
-                if len(current_intersection) > max_intersection_size:
-                    max_intersection_size = len(current_intersection)
-                    best_intersection = current_intersection
-                    best_group_indices = group_indices
-                    
-        return sorted(best_group_indices), sorted(best_intersection)
+                score = len(current_intersection)
+                # Use a min-heap of size top_k
+                item = (score, group_indices, sorted(current_intersection))
+                if len(heap) < top_k:
+                    heapq.heappush(heap, item)
+                else:
+                    if item > heap[0]:
+                        heapq.heappushpop(heap, item)
+
+        # Sort results by intersection size descending, then by group indices
+        results = sorted(heap, key=lambda x: (x[0], x[1]), reverse=True)
+        return [(list(group_indices), intersection) for _, group_indices, intersection in results]
 
     @staticmethod
-    def max_k_subset_intersection_brute_force(matrix: np.ndarray, params: CalculationParams) -> Tuple[list[int], list[int], list[Tuple[int, int]]]:
+    def max_n_subset_intersection_brute_force(matrix: np.ndarray, params: CalculationParams) -> List[Tuple[list[int], list[int], list[Tuple[int, int]]]]:
         per_col_subsets = []
 
         for col in matrix.T:
@@ -214,63 +232,72 @@ class MatrixApp:
                 groups = relaxed_groups
             subsets = [set([p[0] for p in group]) for group in groups]
             per_col_subsets.append(subsets)
-        
-        chosen_columns, chosen_rows = MatrixApp.max_k_representative_intersection(per_col_subsets, k=params.n)
 
-        chosen_columns_ranges = []
+        top_intersections = MatrixApp.max_n_representative_intersection(per_col_subsets, n=params.n, top_k=params.top_k)
 
-        for col in chosen_columns:
-            view = matrix[chosen_rows, col]
-            col_range = (view.min(), view.max())
-            chosen_columns_ranges.append(col_range)
-            assert col_range[1] - col_range[0] <= params.relaxation, "invalid relaxation"
-        
-        return chosen_columns, chosen_rows, chosen_columns_ranges
+        res = []
+        for intersection in top_intersections:
+            chosen_columns, chosen_rows = intersection
+            chosen_columns_ranges = []
+
+            for col in chosen_columns:
+                view = matrix[chosen_rows, col]
+                col_range = (view.min(), view.max())
+                chosen_columns_ranges.append(col_range)
+                assert col_range[1] - col_range[0] <= params.relaxation, "invalid relaxation"
+            res.append((chosen_columns, chosen_rows, chosen_columns_ranges))
+
+        return res
 
     @staticmethod
-    def max_k_subset_sums_brute_force(matrix: np.ndarray, params: CalculationParams) -> Tuple[list[int], list[int], list[Tuple[int, int]]]:
-        max_sum_count = -1
-        chosen_columns = None
-        chosen_rows = None
-        chosen_rows_range = None
-
+    def max_n_subset_sums_brute_force(matrix: np.ndarray, params: CalculationParams) -> List[Tuple[list[int], list[int], list[Tuple[int, int]]]]:
         if params.relaxation > 0:
             raise NotImplementedError("כרגע אין תמיכה בקפיצות במצב חישוב סיכומי")
-        k = params.n
-        for combo_indices in combinations(range(matrix.shape[1]), k):
+        n = params.n
+        top_k = params.top_k
+        heap = []
+
+        for combo_indices in combinations(range(matrix.shape[1]), n):
             sums: np.ndarray = matrix[:, combo_indices].sum(axis=1)
             counts = np.bincount(sums)
             max_s = np.argmax(counts)
             max_count = counts[max_s]
+            chosen_rows = sorted(list(np.nonzero((sums == max_s)))[0])
+            chosen_rows_range = [(max_s, max_s)]
+            item = (max_count, combo_indices, chosen_rows, chosen_rows_range)
+            if len(heap) < top_k:
+                heapq.heappush(heap, item)
+            else:
+                if item > heap[0]:
+                    heapq.heappushpop(heap, item)
 
-            if max_count > max_sum_count:
-                max_sum_count = max_count
-                chosen_columns = combo_indices
-                chosen_rows = sorted(list(np.nonzero((sums == max_s)))[0])
-                chosen_rows_range = [(max_s, max_s)]
-        
-        return chosen_columns, chosen_rows, chosen_rows_range
-        
+        # Sort results by count descending, then by columns
+        results = sorted(heap, key=lambda x: (x[0], x[1]), reverse=True)
+        return [(list(combo_indices), chosen_rows, chosen_rows_range) for _, combo_indices, chosen_rows, chosen_rows_range in results]
 
 
-
-            
-
-           
-            
-        return chosen_columns, chosen_rows, summation_range
-
-    def run_calculation(self, matrix, params: CalculationParams) -> CalculationResult:
+    def run_calculation(self, matrix, params: CalculationParams) -> List[CalculationResult]:
+        res = []
         if params.mode == ProcessingMode.SEPARATE:
-            chosen_columns, chosen_rows, chosen_columns_ranges = self.max_k_subset_intersection_brute_force(matrix, params)
-            return CalculationResult(chosen_columns=chosen_columns,
-                                     chosen_columns_ranges=chosen_columns_ranges,
-                                     chosen_rows=chosen_rows)
+            top_intersections = self.max_n_subset_intersection_brute_force(matrix, params)
+            for intersection in top_intersections:
+                chosen_columns, chosen_rows, chosen_columns_ranges = intersection
+
+                calculation_result = CalculationResult(chosen_columns=chosen_columns,
+                                                       chosen_columns_ranges=chosen_columns_ranges,
+                                                       chosen_rows=chosen_rows)
+                res.append(calculation_result)
+            return res
         elif params.mode == ProcessingMode.AGGREGATIVE:
-            chosen_columns, chosen_rows, chosen_columns_ranges = self.max_k_subset_sums_brute_force(matrix, params)
-            return CalculationResult(chosen_columns=chosen_columns,
-                                     chosen_columns_ranges=chosen_columns_ranges,
-                                     chosen_rows=chosen_rows)
+            top_sums = self.max_n_subset_sums_brute_force(matrix, params)
+            for chosen_columns, chosen_rows, chosen_columns_ranges in top_sums:
+                calculation_result = CalculationResult(
+                    chosen_columns=chosen_columns,
+                    chosen_columns_ranges=chosen_columns_ranges,
+                    chosen_rows=chosen_rows
+                )
+                res.append(calculation_result)
+            return res
 
     def run(self):
         if not self.file_path:
@@ -287,7 +314,9 @@ class MatrixApp:
                 return
             relaxation = self.relax_var.get()
             params = CalculationParams(n=n, mode=mode, relaxation=relaxation)
-            result = self.run_calculation(matrix, params)
+            results = self.run_calculation(matrix, params)
+
+            toto_results = [calculation_to_toto_result(res) for res in results]
 
             base_input_path, _ = os.path.splitext(self.file_path)
             time_addition = datetime.strftime(datetime.now(), format="%Y%m%d_%H%M%S")
@@ -295,9 +324,24 @@ class MatrixApp:
             default_output_path = base_output_path + ".txt"
             output_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")], title="שמירת תוצאה", initialfile=default_output_path)
 
-            chosen_fixtures = [e+1 for e in result.chosen_rows]
-            chosen_configuratios = [c+1 for c in result.chosen_columns]
-            chosen_ranges_strs = "/".join([f"{p[0]}-{p[1]}" if len(set(p)) > 1 else f"{p[0]}" for p in result.chosen_columns_ranges])
+
+            metadata_df = pd.DataFrame(data={
+                "כמות עמודות": [params.n],
+                "מצב חישוב": [params.mode.value],
+                "מספר קפיצות מקסימלי": [params.relaxation],
+                "כמות מחזורים מקסימלית": [len(toto_results[-1].mahzorim) if toto_results else 0],
+            })
+
+
+            data_df = pd.DataFrame(data={
+                "מספר פעמים": [len(result.mahzorim) for result in toto_results],
+                f"טופ {params.top_k}": [i+1 for i in range(params.top_k)],
+                "עמודות": [result.turim for result in toto_results],
+                "טווחים": [result.tvachim for result in toto_results],
+                "מחזורים": [result.mahzorim for result in toto_results],
+                "סיכום": [result.sikum for result in toto_results],
+            })
+
             if output_path:
                 with open(output_path, 'w', encoding="utf-8") as f:
                     f.write(f"כמות עמודות: {params.n}\n")
