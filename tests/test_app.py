@@ -5,7 +5,8 @@ from app import MatrixApp, CalculationParams, ProcessingMode
 
 
 EXCEL_FILE_PATH = "tests/assets/131.xlsx"
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
+
 # Placeholder for testing Excel file loading
 def test_load_excel():
     matrix = MatrixApp.load_matrix_from_excel(EXCEL_FILE_PATH, columns_count=12)

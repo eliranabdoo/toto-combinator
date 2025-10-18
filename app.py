@@ -278,7 +278,7 @@ class MatrixApp:
             stats = {}
         top_intersections = MatrixApp.max_n_representative_intersection(per_col_subsets, n=params.n, top_k=params.top_k, stats=stats)
         if log_stats:
-            logging.info(f"Max_n_subset_intersection_brute_force stats: {stats}")
+            logging.getLogger().info(f"Max_n_subset_intersection_brute_force stats: {stats}")
 
         res = []
         for intersection in top_intersections:
