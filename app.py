@@ -1,3 +1,6 @@
+import logging
+import math
+import time 
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import numpy as np
@@ -9,7 +12,7 @@ from enum import Enum
 from itertools import combinations, groupby, product
 from datetime import datetime
 import heapq
-from openpyxl.styles import PatternFill, Font
+from openpyxl.styles import PatternFill, Font, Border, Alignment, Side
 
 class ProcessingMode(Enum):
     AGGREGATIVE = "סיכומי"
@@ -29,7 +32,7 @@ class CalculationResult:
     chosen_columns: List[int]
 
 
-def calculation_to_toto_result(calculation_result: CalculationResult) -> TotoResult:
+def calculation_to_toto_result(calculation_result: CalculationResult, mode: ProcessingMode) -> TotoResult:
     sikum = None
     if all([p[1] == p[0] for p in calculation_result.chosen_columns_ranges]):
         sikum = sum([p[0] for p in calculation_result.chosen_columns_ranges])
@@ -37,8 +40,8 @@ def calculation_to_toto_result(calculation_result: CalculationResult) -> TotoRes
         turim=[c+1 for c in calculation_result.chosen_columns],
         mahzorim=[r+1 for r in calculation_result.chosen_rows],
         tvachim=[
-            f"{start+1}-{end+1}" if start != end else str(start+1) for start, end in calculation_result.chosen_columns_ranges
-        ],
+            f"{start}-{end}" if start != end else str(start) for start, end in calculation_result.chosen_columns_ranges
+        ] * (len(calculation_result.chosen_columns) if mode == ProcessingMode.AGGREGATIVE else 1) ,
         sikum=sikum
     )
 
@@ -198,19 +201,36 @@ class MatrixApp:
         return filtered_columns
     
     @staticmethod
-    def max_n_representative_intersection(groups, n, top_k=1) -> List[Tuple[list[int], list[int]]]:
+    def max_n_representative_intersection(groups, n, top_k=1, stats: Optional[dict]=None) -> List[Tuple[list[int], list[int]]]:
+        """
+        groups: O(C*R)
+        """
 
         heap = []
+        if stats is None:
+            stats = {}
+
+        stats["combinations"] = len(groups) ** n
+        stats["total_choices"] = 0
+        stats["max_choices_per_combination"] = 0
+        max_choices_time = 0.0
 
         # All combinations of n groups out of N
-        for group_indices in combinations(range(len(groups)), n):
+        t0 = time.perf_counter()
+        for group_indices in combinations(range(len(groups)), n):  # O(C^n)
             selected_groups = [groups[i] for i in group_indices]
             # All ways to pick one subset from each selected group
-            for choice in product(*[range(len(g)) for g in selected_groups]):
+
+            num_choices = math.prod(len(g) for g in selected_groups)
+            stats["total_choices"] += num_choices
+            stats["max_choices_per_combination"] = max(stats["max_choices_per_combination"], num_choices)
+            t2 = time.perf_counter()
+            for choice in product(*[range(len(g)) for g in selected_groups]): # O(max(groups(R))^n)
                 selected_subsets = [selected_groups[i][choice[i]] for i in range(n)]
                 current_intersection = selected_subsets[0]
                 for subset in selected_subsets[1:]:
                     current_intersection = current_intersection.intersection(subset)
+
                 score = len(current_intersection)
                 # Use a min-heap of size top_k
                 item = (score, group_indices, sorted(current_intersection))
@@ -219,18 +239,24 @@ class MatrixApp:
                 else:
                     if item > heap[0]:
                         heapq.heappushpop(heap, item)
+            t3 = time.perf_counter()
+            max_choices_time = max(max_choices_time, t3 - t2)
+        t1 = time.perf_counter()
+        stats["combinations_time_s"] = t1 - t0
+        stats["max_choices_time"] = max_choices_time
+        stats["average_choices_per_combination"] = stats["total_choices"] / stats["combinations"]
 
         # Sort results by intersection size descending, then by group indices
         results = sorted(heap, key=lambda x: (x[0], x[1]), reverse=True)
         return [(list(group_indices), intersection) for _, group_indices, intersection in results]
 
     @staticmethod
-    def max_n_subset_intersection_brute_force(matrix: np.ndarray, params: CalculationParams) -> List[Tuple[list[int], list[int], list[Tuple[int, int]]]]:
+    def max_n_subset_intersection_brute_force(matrix: np.ndarray, params: CalculationParams , log_stats: bool = True) -> List[Tuple[list[int], list[int], list[Tuple[int, int]]]]:
         per_col_subsets = []
 
-        for col in matrix.T:
-            index_and_elem_pairs = sorted(list(enumerate(col)), key=lambda p: p[1])
-            groups = [list(g) for _, g in groupby(index_and_elem_pairs, key=lambda p: p[1])]  # [[(0,0), (1,0), (2,0)], [(3,1), (7,1)] ...]
+        for col in matrix.T:                                                                 # O(C)
+            index_and_elem_pairs = sorted(list(enumerate(col)), key=lambda p: p[1])           # O(RlogR)
+            groups = [list(g) for _, g in groupby(index_and_elem_pairs, key=lambda p: p[1])]  # O(R)
             if params.relaxation > 0:
                 relaxed_groups = []
                 for group_index, group in enumerate(groups):
@@ -247,7 +273,12 @@ class MatrixApp:
             subsets = [set([p[0] for p in group]) for group in groups]
             per_col_subsets.append(subsets)
 
-        top_intersections = MatrixApp.max_n_representative_intersection(per_col_subsets, n=params.n, top_k=params.top_k)
+        stats = None
+        if log_stats:
+            stats = {}
+        top_intersections = MatrixApp.max_n_representative_intersection(per_col_subsets, n=params.n, top_k=params.top_k, stats=stats)
+        if log_stats:
+            logging.info(f"Max_n_subset_intersection_brute_force stats: {stats}")
 
         res = []
         for intersection in top_intersections:
@@ -291,27 +322,19 @@ class MatrixApp:
 
 
     def run_calculation(self, matrix, params: CalculationParams) -> List[CalculationResult]:
-        res = []
         if params.mode == ProcessingMode.SEPARATE:
-            top_intersections = self.max_n_subset_intersection_brute_force(matrix, params)
-            for intersection in top_intersections:
-                chosen_columns, chosen_rows, chosen_columns_ranges = intersection
-
-                calculation_result = CalculationResult(chosen_columns=chosen_columns,
-                                                       chosen_columns_ranges=chosen_columns_ranges,
-                                                       chosen_rows=chosen_rows)
-                res.append(calculation_result)
-            return res
+            calculation_func = self.max_n_subset_intersection_brute_force
         elif params.mode == ProcessingMode.AGGREGATIVE:
-            top_sums = self.max_n_subset_sums_brute_force(matrix, params)
-            for chosen_columns, chosen_rows, chosen_columns_ranges in top_sums:
-                calculation_result = CalculationResult(
-                    chosen_columns=chosen_columns,
-                    chosen_columns_ranges=chosen_columns_ranges,
-                    chosen_rows=chosen_rows
-                )
-                res.append(calculation_result)
-            return res
+            calculation_func = self.max_n_subset_sums_brute_force
+        res = []
+        for curr_res in calculation_func(matrix, params):
+            chosen_columns, chosen_rows, chosen_columns_ranges = curr_res
+            calculation_result = CalculationResult(chosen_columns=chosen_columns,
+                                                   chosen_columns_ranges=chosen_columns_ranges,
+                                                   chosen_rows=chosen_rows)
+            res.append(calculation_result)
+        return res
+        
 
     def run(self):
         if not self.file_path:
@@ -331,7 +354,7 @@ class MatrixApp:
             params = CalculationParams(n=n, mode=mode, relaxation=relaxation, top_k=top_k)
             results = self.run_calculation(matrix, params)
 
-            toto_results = [calculation_to_toto_result(res) for res in results]
+            toto_results = [calculation_to_toto_result(res, params.mode) for res in results]
 
 
             topk_colname = f"טופ {params.top_k}"
@@ -384,39 +407,64 @@ class MatrixApp:
                             cell.font = bold_font
                     
                     # Calculate starting row for data table (metadata rows + 2 blank rows)
-                    data_start_row = metadata_df.shape[0] + 3
+                    data_start_row = (metadata_df.shape[0] + 1) + 4
 
 
-                    value_cols = ["מספר פעמים", topk_colname] + ["סיכום"] if params.mode == ProcessingMode.AGGREGATIVE else []
+                    value_cols = ["מספר פעמים", topk_colname] + (["סיכום"] if params.mode == ProcessingMode.AGGREGATIVE else [])
                     list_cols = ["עמודות", "מחזורים"]
 
                     num_entries = len(data_df)
+                    last_available_col = 1
+                    space_factor = 3
+
+                    def set_cell_value(cell, value):
+                        # This function sets the value of a cell and can be extended
+                        # to add more functionality in the future
+                        cell.value = value
+                        cell.alignment = Alignment(horizontal="center", vertical="center")
+                        thin_border = Border(left=Side(style='thin'), 
+                                            right=Side(style='thin'), 
+                                            top=Side(style='thin'), 
+                                            bottom=Side(style='thin'))
+                        cell.border = thin_border
 
                     for value_col in value_cols:
+                        header_cell = worksheet.cell(row=data_start_row-1, column=last_available_col)
+                        set_cell_value(header_cell, value_col)
                         if value_col == "מספר פעמים":
-                            for row in range(data_start_row, data_start_row + num_entries):
-                                cell = worksheet.cell(row=row, column=2)
-                                cell.value = data_df.at[row - data_start_row, "מספר פעמים"]
+                            for row in range(num_entries):
+                                cell = worksheet.cell(row=data_start_row + space_factor*row, column=last_available_col)
+                                set_cell_value(cell, data_df.at[row, "מספר פעמים"])
                         elif value_col == topk_colname:
-                            for row in range(data_start_row, data_start_row + num_entries):
-                                cell = worksheet.cell(row=row, column=3)
-                                cell.value = data_df.at[row - data_start_row, topk_colname]
+                            for row in range(num_entries):
+                                cell = worksheet.cell(row=data_start_row + space_factor*row, column=last_available_col)
+                                set_cell_value(cell, data_df.at[row, topk_colname])
                         elif value_col == "סיכום":
-                            for row in range(data_start_row, data_start_row + num_entries):
-                                cell = worksheet.cell(row=row, column=4)
-                                cell.value = data_df.at[row - data_start_row, "סיכום"]
+                            for row in range(num_entries):
+                                cell = worksheet.cell(row=data_start_row + space_factor*row, column=last_available_col)
+                                set_cell_value(cell, data_df.at[row, "סיכום"])
+                        last_available_col += 1
 
                     for list_col in list_cols:
                         col_width = data_df[list_col].map(len).max()
-                        
+                        header_cell = worksheet.cell(row=data_start_row-1, column=last_available_col)
+                        set_cell_value(header_cell, list_col)
+                        worksheet.merge_cells(start_row=data_start_row-1, start_column=last_available_col, end_row=data_start_row-1, end_column=last_available_col + col_width - 1)
+
                         if list_col == "עמודות":
-                            for row in range(data_start_row, data_start_row + num_entries):
-                                cell = worksheet.cell(row=row, column=5)
-                                cell.value = data_df.at[row - data_start_row, "עמודות"]
+                            for row in range(num_entries):
+                                for col_offset, amuda_and_tvach in enumerate(zip(data_df.at[row , "עמודות"], data_df.at[row, "טווחים"])):
+                                    amuda, tvach = amuda_and_tvach
+                                    cell = worksheet.cell(row=data_start_row + space_factor*row, column=last_available_col + col_offset)
+                                    set_cell_value(cell, amuda)
+                                    cell = worksheet.cell(row=data_start_row + space_factor*row + 1, column=last_available_col + col_offset)
+                                    set_cell_value(cell, tvach)
                         elif list_col == "מחזורים":
-                            for row in range(data_start_row, data_start_row + num_entries):
-                                cell = worksheet.cell(row=row, column=6)
-                                cell.value = data_df.at[row - data_start_row, "מחזורים"]
+                            for row in range(num_entries):
+                                for col_offset, machzor in enumerate(data_df.at[row, "מחזורים"]):
+                                    cell = worksheet.cell(row=data_start_row + space_factor*row, column=last_available_col + col_offset)
+                                    set_cell_value(cell, machzor)
+                        last_available_col += col_width
                 messagebox.showinfo("Success", f"Result saved to {output_path}")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to process file: {e}")
