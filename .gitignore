@@ -70,6 +70,3 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Test assets
-/tests/assets/ 
