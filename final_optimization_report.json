@@ -1,0 +1,2365 @@
+{
+  "baseline_results": {
+    "small_3_separate_0_1": {
+      "execution_time": 0.003347465671443691,
+      "results": [
+        [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            3,
+            6,
+            9,
+            12
+          ],
+          [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ]
+          ]
+        ]
+      ],
+      "matrix_shape": [
+        15,
+        6
+      ],
+      "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+    },
+    "small_4_separate_0_2": {
+      "execution_time": 0.019647148340785254,
+      "results": [
+        [
+          [
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "7",
+              "7"
+            ],
+            [
+              "7",
+              "7"
+            ],
+            [
+              "7",
+              "7"
+            ]
+          ]
+        ],
+        [
+          [
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            14
+          ],
+          [
+            [
+              "7",
+              "7"
+            ],
+            [
+              "9",
+              "9"
+            ],
+            [
+              "8",
+              "8"
+            ],
+            [
+              "2",
+              "2"
+            ]
+          ]
+        ]
+      ],
+      "matrix_shape": [
+        15,
+        6
+      ],
+      "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=2)"
+    },
+    "small_3_separate_1_1": {
+      "execution_time": 0.003645465010777116,
+      "results": [
+        [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            3,
+            6,
+            9,
+            12
+          ],
+          [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ]
+          ]
+        ]
+      ],
+      "matrix_shape": [
+        15,
+        6
+      ],
+      "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=1)"
+    },
+    "medium_3_separate_0_1": {
+      "execution_time": 0.013255276329194507,
+      "results": [
+        [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ]
+          ]
+        ]
+      ],
+      "matrix_shape": [
+        25,
+        8
+      ],
+      "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+    },
+    "medium_4_separate_1_2": {
+      "execution_time": 0.15880746099477014,
+      "results": [
+        [
+          [
+            0,
+            1,
+            2,
+            5
+          ],
+          [
+            0,
+            3,
+            9,
+            12,
+            15,
+            18,
+            21,
+            23
+          ],
+          [
+            [
+              "4",
+              "5"
+            ],
+            [
+              "4",
+              "5"
+            ],
+            [
+              "4",
+              "5"
+            ],
+            [
+              "7",
+              "8"
+            ]
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            2,
+            5
+          ],
+          [
+            0,
+            3,
+            9,
+            12,
+            15,
+            18,
+            21
+          ],
+          [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "7",
+              "8"
+            ]
+          ]
+        ]
+      ],
+      "matrix_shape": [
+        25,
+        8
+      ],
+      "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+    },
+    "large_3_separate_0_1": {
+      "execution_time": 0.04389438667567447,
+      "results": [
+        [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24,
+            27,
+            30,
+            33,
+            36,
+            39
+          ],
+          [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ]
+          ]
+        ]
+      ],
+      "matrix_shape": [
+        40,
+        10
+      ],
+      "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+    },
+    "large_4_separate_1_2": {
+      "execution_time": 0.8486071566585451,
+      "results": [
+        [
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            0,
+            3,
+            6,
+            9,
+            12,
+            15,
+            30,
+            36
+          ],
+          [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "6",
+              "7"
+            ]
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            0,
+            3,
+            6,
+            9,
+            12,
+            15,
+            30,
+            36
+          ],
+          [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "6",
+              "7"
+            ]
+          ]
+        ]
+      ],
+      "matrix_shape": [
+        40,
+        10
+      ],
+      "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+    }
+  },
+  "pruning_optimization": {
+    "baseline": {
+      "small_3_separate_0_1": {
+        "execution_time": 0.003328175012332698,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          15,
+          6
+        ],
+        "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+      },
+      "small_4_separate_0_2": {
+        "execution_time": 0.019682941007583093,
+        "results": [
+          [
+            [
+              2,
+              3,
+              4,
+              5
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "7",
+                "7"
+              ],
+              [
+                "7",
+                "7"
+              ],
+              [
+                "7",
+                "7"
+              ]
+            ]
+          ],
+          [
+            [
+              2,
+              3,
+              4,
+              5
+            ],
+            [
+              14
+            ],
+            [
+              [
+                "7",
+                "7"
+              ],
+              [
+                "9",
+                "9"
+              ],
+              [
+                "8",
+                "8"
+              ],
+              [
+                "2",
+                "2"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          15,
+          6
+        ],
+        "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=2)"
+      },
+      "small_3_separate_1_1": {
+        "execution_time": 0.0036677416840878627,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          15,
+          6
+        ],
+        "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=1)"
+      },
+      "medium_3_separate_0_1": {
+        "execution_time": 0.013714863356047621,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              18,
+              21,
+              24
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          25,
+          8
+        ],
+        "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+      },
+      "medium_4_separate_1_2": {
+        "execution_time": 0.15890660600659126,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2,
+              5
+            ],
+            [
+              0,
+              3,
+              9,
+              12,
+              15,
+              18,
+              21,
+              23
+            ],
+            [
+              [
+                "4",
+                "5"
+              ],
+              [
+                "4",
+                "5"
+              ],
+              [
+                "4",
+                "5"
+              ],
+              [
+                "7",
+                "8"
+              ]
+            ]
+          ],
+          [
+            [
+              0,
+              1,
+              2,
+              5
+            ],
+            [
+              0,
+              3,
+              9,
+              12,
+              15,
+              18,
+              21
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "7",
+                "8"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          25,
+          8
+        ],
+        "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+      },
+      "large_3_separate_0_1": {
+        "execution_time": 0.04391093868374204,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              18,
+              21,
+              24,
+              27,
+              30,
+              33,
+              36,
+              39
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          40,
+          10
+        ],
+        "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+      },
+      "large_4_separate_1_2": {
+        "execution_time": 0.909254708676599,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              30,
+              36
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "6",
+                "7"
+              ]
+            ]
+          ],
+          [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              30,
+              36
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "6",
+                "7"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          40,
+          10
+        ],
+        "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+      }
+    },
+    "optimization": {
+      "correctness": true,
+      "performance_gains": {
+        "small_3_separate_0_1": {
+          "speedup": 2.1645048222750454,
+          "baseline_time": 0.003328175012332698,
+          "optimized_time": 0.001537614967674017
+        },
+        "small_4_separate_0_2": {
+          "speedup": 0.6974812216070194,
+          "baseline_time": 0.019682941007583093,
+          "optimized_time": 0.028220030013471842
+        },
+        "small_3_separate_1_1": {
+          "speedup": 2.179865630011997,
+          "baseline_time": 0.0036677416840878627,
+          "optimized_time": 0.0016825540224090219
+        },
+        "medium_3_separate_0_1": {
+          "speedup": 2.5353160965589603,
+          "baseline_time": 0.013714863356047621,
+          "optimized_time": 0.005409527977462858
+        },
+        "medium_4_separate_1_2": {
+          "speedup": 2.7861039479893783,
+          "baseline_time": 0.15890660600659126,
+          "optimized_time": 0.05703541898401454
+        },
+        "large_3_separate_0_1": {
+          "speedup": 2.661380957067664,
+          "baseline_time": 0.04391093868374204,
+          "optimized_time": 0.016499305958859622
+        },
+        "large_4_separate_1_2": {
+          "speedup": 2.7838853874443075,
+          "baseline_time": 0.909254708676599,
+          "optimized_time": 0.32661355700111017
+        }
+      },
+      "failures": []
+    },
+    "validation": {
+      "keep_optimization": false,
+      "correctness_pass": true,
+      "performance_pass": false,
+      "average_speedup": 2.258362580422053,
+      "individual_speedups": {
+        "small_3_separate_0_1": {
+          "speedup": 2.1645048222750454,
+          "baseline_time": 0.003328175012332698,
+          "optimized_time": 0.001537614967674017
+        },
+        "small_4_separate_0_2": {
+          "speedup": 0.6974812216070194,
+          "baseline_time": 0.019682941007583093,
+          "optimized_time": 0.028220030013471842
+        },
+        "small_3_separate_1_1": {
+          "speedup": 2.179865630011997,
+          "baseline_time": 0.0036677416840878627,
+          "optimized_time": 0.0016825540224090219
+        },
+        "medium_3_separate_0_1": {
+          "speedup": 2.5353160965589603,
+          "baseline_time": 0.013714863356047621,
+          "optimized_time": 0.005409527977462858
+        },
+        "medium_4_separate_1_2": {
+          "speedup": 2.7861039479893783,
+          "baseline_time": 0.15890660600659126,
+          "optimized_time": 0.05703541898401454
+        },
+        "large_3_separate_0_1": {
+          "speedup": 2.661380957067664,
+          "baseline_time": 0.04391093868374204,
+          "optimized_time": 0.016499305958859622
+        },
+        "large_4_separate_1_2": {
+          "speedup": 2.7838853874443075,
+          "baseline_time": 0.909254708676599,
+          "optimized_time": 0.32661355700111017
+        }
+      }
+    },
+    "report": {
+      "optimization_name": "pruning",
+      "summary": {
+        "optimization_accepted": false,
+        "correctness_pass": true,
+        "performance_pass": false,
+        "average_speedup": 2.258362580422053
+      },
+      "detailed_results": {
+        "baseline_performance": {
+          "small_3_separate_0_1": {
+            "execution_time": 0.003328175012332698,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              15,
+              6
+            ],
+            "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+          },
+          "small_4_separate_0_2": {
+            "execution_time": 0.019682941007583093,
+            "results": [
+              [
+                [
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                [
+                  0,
+                  5
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "7",
+                    "7"
+                  ],
+                  [
+                    "7",
+                    "7"
+                  ],
+                  [
+                    "7",
+                    "7"
+                  ]
+                ]
+              ],
+              [
+                [
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                [
+                  14
+                ],
+                [
+                  [
+                    "7",
+                    "7"
+                  ],
+                  [
+                    "9",
+                    "9"
+                  ],
+                  [
+                    "8",
+                    "8"
+                  ],
+                  [
+                    "2",
+                    "2"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              15,
+              6
+            ],
+            "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=2)"
+          },
+          "small_3_separate_1_1": {
+            "execution_time": 0.0036677416840878627,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              15,
+              6
+            ],
+            "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=1)"
+          },
+          "medium_3_separate_0_1": {
+            "execution_time": 0.013714863356047621,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  15,
+                  18,
+                  21,
+                  24
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              25,
+              8
+            ],
+            "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+          },
+          "medium_4_separate_1_2": {
+            "execution_time": 0.15890660600659126,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2,
+                  5
+                ],
+                [
+                  0,
+                  3,
+                  9,
+                  12,
+                  15,
+                  18,
+                  21,
+                  23
+                ],
+                [
+                  [
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "7",
+                    "8"
+                  ]
+                ]
+              ],
+              [
+                [
+                  0,
+                  1,
+                  2,
+                  5
+                ],
+                [
+                  0,
+                  3,
+                  9,
+                  12,
+                  15,
+                  18,
+                  21
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "7",
+                    "8"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              25,
+              8
+            ],
+            "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+          },
+          "large_3_separate_0_1": {
+            "execution_time": 0.04391093868374204,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  15,
+                  18,
+                  21,
+                  24,
+                  27,
+                  30,
+                  33,
+                  36,
+                  39
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              40,
+              10
+            ],
+            "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+          },
+          "large_4_separate_1_2": {
+            "execution_time": 0.909254708676599,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  15,
+                  30,
+                  36
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "6",
+                    "7"
+                  ]
+                ]
+              ],
+              [
+                [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  15,
+                  30,
+                  36
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "6",
+                    "7"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              40,
+              10
+            ],
+            "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+          }
+        },
+        "optimization_results": {
+          "correctness": true,
+          "performance_gains": {
+            "small_3_separate_0_1": {
+              "speedup": 2.1645048222750454,
+              "baseline_time": 0.003328175012332698,
+              "optimized_time": 0.001537614967674017
+            },
+            "small_4_separate_0_2": {
+              "speedup": 0.6974812216070194,
+              "baseline_time": 0.019682941007583093,
+              "optimized_time": 0.028220030013471842
+            },
+            "small_3_separate_1_1": {
+              "speedup": 2.179865630011997,
+              "baseline_time": 0.0036677416840878627,
+              "optimized_time": 0.0016825540224090219
+            },
+            "medium_3_separate_0_1": {
+              "speedup": 2.5353160965589603,
+              "baseline_time": 0.013714863356047621,
+              "optimized_time": 0.005409527977462858
+            },
+            "medium_4_separate_1_2": {
+              "speedup": 2.7861039479893783,
+              "baseline_time": 0.15890660600659126,
+              "optimized_time": 0.05703541898401454
+            },
+            "large_3_separate_0_1": {
+              "speedup": 2.661380957067664,
+              "baseline_time": 0.04391093868374204,
+              "optimized_time": 0.016499305958859622
+            },
+            "large_4_separate_1_2": {
+              "speedup": 2.7838853874443075,
+              "baseline_time": 0.909254708676599,
+              "optimized_time": 0.32661355700111017
+            }
+          },
+          "failures": []
+        },
+        "validation_result": {
+          "keep_optimization": false,
+          "correctness_pass": true,
+          "performance_pass": false,
+          "average_speedup": 2.258362580422053,
+          "individual_speedups": {
+            "small_3_separate_0_1": {
+              "speedup": 2.1645048222750454,
+              "baseline_time": 0.003328175012332698,
+              "optimized_time": 0.001537614967674017
+            },
+            "small_4_separate_0_2": {
+              "speedup": 0.6974812216070194,
+              "baseline_time": 0.019682941007583093,
+              "optimized_time": 0.028220030013471842
+            },
+            "small_3_separate_1_1": {
+              "speedup": 2.179865630011997,
+              "baseline_time": 0.0036677416840878627,
+              "optimized_time": 0.0016825540224090219
+            },
+            "medium_3_separate_0_1": {
+              "speedup": 2.5353160965589603,
+              "baseline_time": 0.013714863356047621,
+              "optimized_time": 0.005409527977462858
+            },
+            "medium_4_separate_1_2": {
+              "speedup": 2.7861039479893783,
+              "baseline_time": 0.15890660600659126,
+              "optimized_time": 0.05703541898401454
+            },
+            "large_3_separate_0_1": {
+              "speedup": 2.661380957067664,
+              "baseline_time": 0.04391093868374204,
+              "optimized_time": 0.016499305958859622
+            },
+            "large_4_separate_1_2": {
+              "speedup": 2.7838853874443075,
+              "baseline_time": 0.909254708676599,
+              "optimized_time": 0.32661355700111017
+            }
+          }
+        }
+      }
+    }
+  },
+  "parallelization_optimization": {
+    "baseline": {
+      "small_3_separate_0_1": {
+        "execution_time": 0.0033123430136280754,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          15,
+          6
+        ],
+        "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+      },
+      "small_4_separate_0_2": {
+        "execution_time": 0.01941121501537661,
+        "results": [
+          [
+            [
+              2,
+              3,
+              4,
+              5
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "7",
+                "7"
+              ],
+              [
+                "7",
+                "7"
+              ],
+              [
+                "7",
+                "7"
+              ]
+            ]
+          ],
+          [
+            [
+              2,
+              3,
+              4,
+              5
+            ],
+            [
+              14
+            ],
+            [
+              [
+                "7",
+                "7"
+              ],
+              [
+                "9",
+                "9"
+              ],
+              [
+                "8",
+                "8"
+              ],
+              [
+                "2",
+                "2"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          15,
+          6
+        ],
+        "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=2)"
+      },
+      "small_3_separate_1_1": {
+        "execution_time": 0.0037457019789144397,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          15,
+          6
+        ],
+        "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=1)"
+      },
+      "medium_3_separate_0_1": {
+        "execution_time": 0.013234730654706558,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              18,
+              21,
+              24
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          25,
+          8
+        ],
+        "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+      },
+      "medium_4_separate_1_2": {
+        "execution_time": 0.16069590098535022,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2,
+              5
+            ],
+            [
+              0,
+              3,
+              9,
+              12,
+              15,
+              18,
+              21,
+              23
+            ],
+            [
+              [
+                "4",
+                "5"
+              ],
+              [
+                "4",
+                "5"
+              ],
+              [
+                "4",
+                "5"
+              ],
+              [
+                "7",
+                "8"
+              ]
+            ]
+          ],
+          [
+            [
+              0,
+              1,
+              2,
+              5
+            ],
+            [
+              0,
+              3,
+              9,
+              12,
+              15,
+              18,
+              21
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "7",
+                "8"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          25,
+          8
+        ],
+        "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+      },
+      "large_3_separate_0_1": {
+        "execution_time": 0.04330498166382313,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              18,
+              21,
+              24,
+              27,
+              30,
+              33,
+              36,
+              39
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          40,
+          10
+        ],
+        "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+      },
+      "large_4_separate_1_2": {
+        "execution_time": 0.8793488336765828,
+        "results": [
+          [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              30,
+              36
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "6",
+                "7"
+              ]
+            ]
+          ],
+          [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              30,
+              36
+            ],
+            [
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "6",
+                "7"
+              ]
+            ]
+          ]
+        ],
+        "matrix_shape": [
+          40,
+          10
+        ],
+        "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+      }
+    },
+    "optimization": {
+      "correctness": true,
+      "performance_gains": {
+        "small_3_separate_0_1": {
+          "speedup": 0.15937539659036054,
+          "baseline_time": 0.0033123430136280754,
+          "optimized_time": 0.020783276995643973
+        },
+        "small_4_separate_0_2": {
+          "speedup": 0.8327685012496584,
+          "baseline_time": 0.01941121501537661,
+          "optimized_time": 0.02330925699789077
+        },
+        "small_3_separate_1_1": {
+          "speedup": 0.3359371559012876,
+          "baseline_time": 0.0037457019789144397,
+          "optimized_time": 0.01115000800928101
+        },
+        "medium_3_separate_0_1": {
+          "speedup": 0.7532334993387456,
+          "baseline_time": 0.013234730654706558,
+          "optimized_time": 0.017570555035490543
+        },
+        "medium_4_separate_1_2": {
+          "speedup": 1.215111541022906,
+          "baseline_time": 0.16069590098535022,
+          "optimized_time": 0.1322478600195609
+        },
+        "large_3_separate_0_1": {
+          "speedup": 1.2943065311525226,
+          "baseline_time": 0.04330498166382313,
+          "optimized_time": 0.03345805697608739
+        },
+        "large_4_separate_1_2": {
+          "speedup": 1.306386086678079,
+          "baseline_time": 0.8793488336765828,
+          "optimized_time": 0.6731155840097927
+        }
+      },
+      "failures": []
+    },
+    "validation": {
+      "keep_optimization": false,
+      "correctness_pass": true,
+      "performance_pass": false,
+      "average_speedup": 0.8424455302762228,
+      "individual_speedups": {
+        "small_3_separate_0_1": {
+          "speedup": 0.15937539659036054,
+          "baseline_time": 0.0033123430136280754,
+          "optimized_time": 0.020783276995643973
+        },
+        "small_4_separate_0_2": {
+          "speedup": 0.8327685012496584,
+          "baseline_time": 0.01941121501537661,
+          "optimized_time": 0.02330925699789077
+        },
+        "small_3_separate_1_1": {
+          "speedup": 0.3359371559012876,
+          "baseline_time": 0.0037457019789144397,
+          "optimized_time": 0.01115000800928101
+        },
+        "medium_3_separate_0_1": {
+          "speedup": 0.7532334993387456,
+          "baseline_time": 0.013234730654706558,
+          "optimized_time": 0.017570555035490543
+        },
+        "medium_4_separate_1_2": {
+          "speedup": 1.215111541022906,
+          "baseline_time": 0.16069590098535022,
+          "optimized_time": 0.1322478600195609
+        },
+        "large_3_separate_0_1": {
+          "speedup": 1.2943065311525226,
+          "baseline_time": 0.04330498166382313,
+          "optimized_time": 0.03345805697608739
+        },
+        "large_4_separate_1_2": {
+          "speedup": 1.306386086678079,
+          "baseline_time": 0.8793488336765828,
+          "optimized_time": 0.6731155840097927
+        }
+      }
+    },
+    "report": {
+      "optimization_name": "parallelization",
+      "summary": {
+        "optimization_accepted": false,
+        "correctness_pass": true,
+        "performance_pass": false,
+        "average_speedup": 0.8424455302762228
+      },
+      "detailed_results": {
+        "baseline_performance": {
+          "small_3_separate_0_1": {
+            "execution_time": 0.0033123430136280754,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              15,
+              6
+            ],
+            "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+          },
+          "small_4_separate_0_2": {
+            "execution_time": 0.01941121501537661,
+            "results": [
+              [
+                [
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                [
+                  0,
+                  5
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "7",
+                    "7"
+                  ],
+                  [
+                    "7",
+                    "7"
+                  ],
+                  [
+                    "7",
+                    "7"
+                  ]
+                ]
+              ],
+              [
+                [
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                [
+                  14
+                ],
+                [
+                  [
+                    "7",
+                    "7"
+                  ],
+                  [
+                    "9",
+                    "9"
+                  ],
+                  [
+                    "8",
+                    "8"
+                  ],
+                  [
+                    "2",
+                    "2"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              15,
+              6
+            ],
+            "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=2)"
+          },
+          "small_3_separate_1_1": {
+            "execution_time": 0.0037457019789144397,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              15,
+              6
+            ],
+            "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=1)"
+          },
+          "medium_3_separate_0_1": {
+            "execution_time": 0.013234730654706558,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  15,
+                  18,
+                  21,
+                  24
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              25,
+              8
+            ],
+            "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+          },
+          "medium_4_separate_1_2": {
+            "execution_time": 0.16069590098535022,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2,
+                  5
+                ],
+                [
+                  0,
+                  3,
+                  9,
+                  12,
+                  15,
+                  18,
+                  21,
+                  23
+                ],
+                [
+                  [
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "7",
+                    "8"
+                  ]
+                ]
+              ],
+              [
+                [
+                  0,
+                  1,
+                  2,
+                  5
+                ],
+                [
+                  0,
+                  3,
+                  9,
+                  12,
+                  15,
+                  18,
+                  21
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "7",
+                    "8"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              25,
+              8
+            ],
+            "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+          },
+          "large_3_separate_0_1": {
+            "execution_time": 0.04330498166382313,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  15,
+                  18,
+                  21,
+                  24,
+                  27,
+                  30,
+                  33,
+                  36,
+                  39
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              40,
+              10
+            ],
+            "params": "CalculationParams(n=3, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=0, top_k=1)"
+          },
+          "large_4_separate_1_2": {
+            "execution_time": 0.8793488336765828,
+            "results": [
+              [
+                [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  15,
+                  30,
+                  36
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "6",
+                    "7"
+                  ]
+                ]
+              ],
+              [
+                [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  15,
+                  30,
+                  36
+                ],
+                [
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "6",
+                    "7"
+                  ]
+                ]
+              ]
+            ],
+            "matrix_shape": [
+              40,
+              10
+            ],
+            "params": "CalculationParams(n=4, mode=<ProcessingMode.SEPARATE: '\u05e0\u05e4\u05e8\u05d3'>, relaxation=1, top_k=2)"
+          }
+        },
+        "optimization_results": {
+          "correctness": true,
+          "performance_gains": {
+            "small_3_separate_0_1": {
+              "speedup": 0.15937539659036054,
+              "baseline_time": 0.0033123430136280754,
+              "optimized_time": 0.020783276995643973
+            },
+            "small_4_separate_0_2": {
+              "speedup": 0.8327685012496584,
+              "baseline_time": 0.01941121501537661,
+              "optimized_time": 0.02330925699789077
+            },
+            "small_3_separate_1_1": {
+              "speedup": 0.3359371559012876,
+              "baseline_time": 0.0037457019789144397,
+              "optimized_time": 0.01115000800928101
+            },
+            "medium_3_separate_0_1": {
+              "speedup": 0.7532334993387456,
+              "baseline_time": 0.013234730654706558,
+              "optimized_time": 0.017570555035490543
+            },
+            "medium_4_separate_1_2": {
+              "speedup": 1.215111541022906,
+              "baseline_time": 0.16069590098535022,
+              "optimized_time": 0.1322478600195609
+            },
+            "large_3_separate_0_1": {
+              "speedup": 1.2943065311525226,
+              "baseline_time": 0.04330498166382313,
+              "optimized_time": 0.03345805697608739
+            },
+            "large_4_separate_1_2": {
+              "speedup": 1.306386086678079,
+              "baseline_time": 0.8793488336765828,
+              "optimized_time": 0.6731155840097927
+            }
+          },
+          "failures": []
+        },
+        "validation_result": {
+          "keep_optimization": false,
+          "correctness_pass": true,
+          "performance_pass": false,
+          "average_speedup": 0.8424455302762228,
+          "individual_speedups": {
+            "small_3_separate_0_1": {
+              "speedup": 0.15937539659036054,
+              "baseline_time": 0.0033123430136280754,
+              "optimized_time": 0.020783276995643973
+            },
+            "small_4_separate_0_2": {
+              "speedup": 0.8327685012496584,
+              "baseline_time": 0.01941121501537661,
+              "optimized_time": 0.02330925699789077
+            },
+            "small_3_separate_1_1": {
+              "speedup": 0.3359371559012876,
+              "baseline_time": 0.0037457019789144397,
+              "optimized_time": 0.01115000800928101
+            },
+            "medium_3_separate_0_1": {
+              "speedup": 0.7532334993387456,
+              "baseline_time": 0.013234730654706558,
+              "optimized_time": 0.017570555035490543
+            },
+            "medium_4_separate_1_2": {
+              "speedup": 1.215111541022906,
+              "baseline_time": 0.16069590098535022,
+              "optimized_time": 0.1322478600195609
+            },
+            "large_3_separate_0_1": {
+              "speedup": 1.2943065311525226,
+              "baseline_time": 0.04330498166382313,
+              "optimized_time": 0.03345805697608739
+            },
+            "large_4_separate_1_2": {
+              "speedup": 1.306386086678079,
+              "baseline_time": 0.8793488336765828,
+              "optimized_time": 0.6731155840097927
+            }
+          }
+        }
+      }
+    }
+  },
+  "summary": {
+    "pruning_accepted": false,
+    "parallelization_accepted": false,
+    "pruning_speedup": 2.258362580422053,
+    "parallelization_speedup": 0.8424455302762228
+  }
+}
