@@ -6,33 +6,14 @@ from tkinter import filedialog, messagebox, ttk
 import numpy as np
 import pandas as pd
 import os
-from dataclasses import dataclass
-from typing import List, Optional, Tuple
-from enum import Enum
+from typing import Dict, List, Optional, Tuple
 from itertools import combinations, groupby, product
 from datetime import datetime
 import heapq
 from openpyxl.styles import PatternFill, Font, Border, Alignment, Side
+from data_models import CalculationParams, CalculationResult, ProcessingMode, TotoResult
 
 
-class ProcessingMode(Enum):
-    AGGREGATIVE = "סיכומי"
-    SEPARATE = "נפרד"
-
-
-@dataclass
-class TotoResult:
-    turim: List[int]
-    mahzorim: List[int]
-    tvachim: List[str]
-    sikum: Optional[int]
-
-
-@dataclass
-class CalculationResult:
-    chosen_columns_ranges: List[Tuple[int, int]]
-    chosen_rows: List[int]
-    chosen_columns: List[int]
 
 
 def calculation_to_toto_result(
@@ -57,12 +38,6 @@ def calculation_to_toto_result(
     )
 
 
-@dataclass
-class CalculationParams:
-    n: int
-    mode: ProcessingMode
-    relaxation: int
-    top_k: int
 
 
 class MatrixApp:
@@ -269,7 +244,7 @@ class MatrixApp:
 
     @staticmethod
     def max_n_representative_intersection(
-        groups, n, top_k=1, stats: Optional[dict] = None
+        groups, n, top_k, stats: Optional[dict]
     ) -> List[Tuple[list[int], list[int]]]:
         """
         groups: O(C*R)
@@ -330,7 +305,7 @@ class MatrixApp:
 
     @staticmethod
     def max_n_subset_intersection_brute_force(
-        matrix: np.ndarray, params: CalculationParams, log_stats: bool = True
+        matrix: np.ndarray, params: CalculationParams, stats: Optional[Dict]
     ) -> List[CalculationResult]:
         per_col_subsets = []
 
@@ -357,16 +332,9 @@ class MatrixApp:
             subsets = [set([p[0] for p in group]) for group in groups]
             per_col_subsets.append(subsets)
 
-        stats = None
-        if log_stats:
-            stats = {}
         top_intersections = MatrixApp.max_n_representative_intersection(
             per_col_subsets, n=params.n, top_k=params.top_k, stats=stats
         )
-        if log_stats:
-            logging.getLogger().info(
-                f"Max_n_subset_intersection_brute_force stats: {stats}"
-            )
 
         res = []
         for intersection in top_intersections:
@@ -392,7 +360,7 @@ class MatrixApp:
 
     @staticmethod
     def max_n_subset_sums_brute_force(
-        matrix: np.ndarray, params: CalculationParams
+        matrix: np.ndarray, params: CalculationParams, stats: Optional[Dict]
     ) -> List[CalculationResult]:
         if params.relaxation > 0:
             raise NotImplementedError("כרגע אין תמיכה בקפיצות במצב חישוב סיכומי")
@@ -400,6 +368,10 @@ class MatrixApp:
         top_k = params.top_k
         heap = []
 
+
+        stats["num_combinations"] = matrix.shape[1] ** n
+
+        t0 = time.perf_counter()
         for combo_indices in combinations(range(matrix.shape[1]), n):
             sums: np.ndarray = matrix[:, combo_indices].sum(axis=1)
             counts = np.bincount(sums)
@@ -416,6 +388,9 @@ class MatrixApp:
 
         # Sort results by count descending, then by columns
         results = sorted(heap, key=lambda x: (x[0], x[1]), reverse=True)
+
+        t1 = time.perf_counter()
+        stats["total_time_elapsed_s"] = t1 - t0
         return [
             CalculationResult(
                 chosen_columns=list(combo_indices),
@@ -427,14 +402,16 @@ class MatrixApp:
 
     @staticmethod
     def run_calculation(
-        matrix, params: CalculationParams
-    ) -> List[CalculationResult]:
+        matrix, params: CalculationParams, return_stats: bool = False
+    ) -> Tuple[List[CalculationResult], Optional[Dict]]:
         if params.mode == ProcessingMode.SEPARATE:
             calculation_func = MatrixApp.max_n_subset_intersection_brute_force
         elif params.mode == ProcessingMode.AGGREGATIVE:
             calculation_func = MatrixApp.max_n_subset_sums_brute_force
-        res = calculation_func(matrix, params)
-        return res
+
+        stats = {} if return_stats else None
+        res = calculation_func(matrix, params, stats)
+        return res, stats
 
     def run(self):
         if not self.file_path:
@@ -454,7 +431,7 @@ class MatrixApp:
             params = CalculationParams(
                 n=n, mode=mode, relaxation=relaxation, top_k=top_k
             )
-            results = self.run_calculation(matrix, params)
+            results, _ = self.run_calculation(matrix, params)
 
             toto_results = [
                 calculation_to_toto_result(res, params.mode) for res in results

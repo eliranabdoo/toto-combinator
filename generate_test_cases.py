@@ -1,24 +1,18 @@
-from dataclasses import dataclass
 import os
 import pickle
-from app import CalculationResult, MatrixApp, CalculationParams, ProcessingMode
+from app import MatrixApp
+from data_models import MatrixAppTestCase, CalculationParams, ProcessingMode
 from tqdm import tqdm
 
-@dataclass
-class MatrixAppTestCase:
-    matrix_file_path: str
-    params: CalculationParams
-    expected_results: list[CalculationResult]
-
-
 def generate_test_cases(path_to_params_sets: dict[str, list[CalculationParams]], pickles_dst_dir: str):
+    os.makedirs(pickles_dst_dir, exist_ok=True)
     for path, params_set in tqdm(path_to_params_sets.items(), desc="generating test cases"):  # pyright: ignore[reportUndefinedVariable]
         matrix = MatrixApp.load_matrix_from_excel(path)
         path_id = os.path.basename(path).split(".")[0]
         for params in params_set:
             params_id = "_".join(str(params.__getattribute__(f)) for f in params.__dataclass_fields__)
             result_id = f"{path_id}_{params_id}"
-            result = MatrixApp.run_calculation(matrix=matrix, params=params)
+            result, _ = MatrixApp.run_calculation(matrix=matrix, params=params)
             test_case = MatrixAppTestCase(
                 matrix_file_path=path,
                 params=params,
