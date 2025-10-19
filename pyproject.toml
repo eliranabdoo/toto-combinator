@@ -12,6 +12,7 @@ authors = [ "Your Name <your.email@example.com>",]
 python = ">=3.8,<3.12"
 pandas = "*"
 openpyxl = "*"
+tqdm = "^4.67.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"

@@ -1,7 +1,11 @@
+from dataclasses import dataclass
 import logging
+import os
+import pickle
+from typing import List
 import numpy as np
 import pytest
-from app import MatrixApp, CalculationParams, ProcessingMode
+from app import CalculationResult, MatrixApp, CalculationParams, ProcessingMode
 
 
 EXCEL_FILE_PATH = "tests/assets/131.xlsx"
@@ -73,3 +77,7 @@ def test_max_n_subset_intersection_brute_force_with_243():
     
     # Verify results
     assert len(results) == 2  # Should return top_k=2 results
+
+
+
+
