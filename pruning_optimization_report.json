@@ -1,0 +1,64 @@
+{
+  "summary": {
+    "optimization_name": "Pruning Optimization",
+    "optimization_accepted": true,
+    "correctness_pass": true,
+    "performance_pass": true,
+    "average_speedup": 2.2854925837924474,
+    "min_speedup": 1.8152159555649043,
+    "max_speedup": 3.099521909814003
+  },
+  "individual_results": {
+    "131_3_ProcessingMode.SEPARATE_0_1": 1.852760275531664,
+    "131_3_ProcessingMode.SEPARATE_1_2": 2.517749041292538,
+    "131_4_ProcessingMode.SEPARATE_0_2": 1.8152159555649043,
+    "131_4_ProcessingMode.SEPARATE_1_1": 2.1672036594106685,
+    "243_3_ProcessingMode.SEPARATE_0_1": 2.172657103286283,
+    "243_3_ProcessingMode.SEPARATE_1_2": 3.099521909814003,
+    "243_4_ProcessingMode.SEPARATE_0_2": 2.118971459964934,
+    "243_4_ProcessingMode.SEPARATE_1_1": 2.539861265474583
+  },
+  "detailed_performance": {
+    "131_3_ProcessingMode.SEPARATE_0_1": {
+      "baseline_time": 0.04602609166613547,
+      "optimized_time": 0.024841903334163362,
+      "speedup": 1.852760275531664
+    },
+    "131_3_ProcessingMode.SEPARATE_1_2": {
+      "baseline_time": 0.0627274673327823,
+      "optimized_time": 0.02491410633228952,
+      "speedup": 2.517749041292538
+    },
+    "131_4_ProcessingMode.SEPARATE_0_2": {
+      "baseline_time": 0.7609305706670663,
+      "optimized_time": 0.41919561600055505,
+      "speedup": 1.8152159555649043
+    },
+    "131_4_ProcessingMode.SEPARATE_1_1": {
+      "baseline_time": 0.9204784849995727,
+      "optimized_time": 0.42473095733415295,
+      "speedup": 2.1672036594106685
+    },
+    "243_3_ProcessingMode.SEPARATE_0_1": {
+      "baseline_time": 0.21213128633462475,
+      "optimized_time": 0.09763679966514853,
+      "speedup": 2.172657103286283
+    },
+    "243_3_ProcessingMode.SEPARATE_1_2": {
+      "baseline_time": 0.32197115233308676,
+      "optimized_time": 0.10387768233340466,
+      "speedup": 3.099521909814003
+    },
+    "243_4_ProcessingMode.SEPARATE_0_2": {
+      "baseline_time": 6.023124279333085,
+      "optimized_time": 2.842475414667812,
+      "speedup": 2.118971459964934
+    },
+    "243_4_ProcessingMode.SEPARATE_1_1": {
+      "baseline_time": 8.28291042366618,
+      "optimized_time": 3.261166480334699,
+      "speedup": 2.539861265474583
+    }
+  },
+  "failures": []
+}
