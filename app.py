@@ -244,7 +244,7 @@ class MatrixApp:
 
     @staticmethod
     def max_n_representative_intersection(
-        groups, n, top_k, stats: Optional[dict]
+        groups, n, top_k, stats: Optional[dict], enable_pruning: bool = False
     ) -> List[Tuple[list[int], list[int]]]:
         """
         groups: O(C*R)
@@ -257,7 +257,12 @@ class MatrixApp:
         stats["combinations"] = len(groups) ** n
         stats["total_choices"] = 0
         stats["max_choices_per_combination"] = 0
+        stats["pruned_choices"] = 0
+        stats["pruned_combinations"] = 0
         max_choices_time = 0.0
+        
+        # Track minimum threshold for pruning (only used when pruning is enabled)
+        min_threshold = 0 if enable_pruning else -1
 
         # All combinations of n groups out of N
         t0 = time.perf_counter()
@@ -271,22 +276,56 @@ class MatrixApp:
                 stats["max_choices_per_combination"], num_choices
             )
             t2 = time.perf_counter()
+            choices_pruned = 0
+            
             for choice in product(
                 *[range(len(g)) for g in selected_groups]
             ):  # O(max(groups(R))^n)
                 selected_subsets = [selected_groups[i][choice[i]] for i in range(n)]
                 current_intersection = selected_subsets[0]
+                
+                # Early pruning based on initial set size (only when pruning enabled)
+                if enable_pruning and len(current_intersection) < min_threshold:
+                    choices_pruned += 1
+                    stats["pruned_choices"] += 1
+                    continue
+                
+                # Compute intersection (with optional early termination)
+                pruned = False
                 for subset in selected_subsets[1:]:
                     current_intersection = current_intersection.intersection(subset)
+                    
+                    # Early termination if intersection becomes too small (only when pruning enabled)
+                    if enable_pruning and len(current_intersection) < min_threshold:
+                        choices_pruned += 1
+                        stats["pruned_choices"] += 1
+                        pruned = True
+                        break
+                
+                if pruned:
+                    continue
 
                 score = len(current_intersection)
-                # Use a min-heap of size top_k
-                item = (score, group_indices, sorted(current_intersection))
-                if len(heap) < top_k:
-                    heapq.heappush(heap, item)
-                else:
-                    if item > heap[0]:
-                        heapq.heappushpop(heap, item)
+                
+                # Only consider adding if score is good enough (or pruning disabled)
+                if not enable_pruning or score >= min_threshold:
+                    # Use a min-heap of size top_k
+                    item = (score, group_indices, sorted(current_intersection))
+                    if len(heap) < top_k:
+                        heapq.heappush(heap, item)
+                        # Update threshold when heap becomes full (only when pruning enabled)
+                        if enable_pruning and len(heap) == top_k:
+                            min_threshold = heap[0][0]
+                    else:
+                        if item > heap[0]:
+                            heapq.heappushpop(heap, item)
+                            # Update threshold with new minimum (only when pruning enabled)
+                            if enable_pruning:
+                                min_threshold = heap[0][0]
+            
+            if choices_pruned == num_choices:
+                stats["pruned_combinations"] += 1
+                
             t3 = time.perf_counter()
             max_choices_time = max(max_choices_time, t3 - t2)
         t1 = time.perf_counter()
@@ -295,6 +334,8 @@ class MatrixApp:
         stats["average_choices_per_combination"] = (
             stats["total_choices"] / stats["combinations"]
         )
+        if enable_pruning and stats["total_choices"] > 0:
+            stats["pruning_rate"] = stats["pruned_choices"] / stats["total_choices"]
 
         # Sort results by intersection size descending, then by group indices
         results = sorted(heap, key=lambda x: (x[0], x[1]), reverse=True)
@@ -333,7 +374,8 @@ class MatrixApp:
             per_col_subsets.append(subsets)
 
         top_intersections = MatrixApp.max_n_representative_intersection(
-            per_col_subsets, n=params.n, top_k=params.top_k, stats=stats
+            per_col_subsets, n=params.n, top_k=params.top_k, stats=stats,
+            enable_pruning=params.enable_pruning
         )
 
         res = []
