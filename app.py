@@ -38,8 +38,6 @@ def calculation_to_toto_result(
     )
 
 
-
-
 class MatrixApp:
     def __init__(self, root):
         self.root = root

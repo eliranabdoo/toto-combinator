@@ -6,7 +6,7 @@ import json
 import time
 import pickle
 from pathlib import Path
-from app_testing import MatrixApp
+from app import MatrixApp
 from data_models import CalculationParams, ProcessingMode
 
 
@@ -22,7 +22,7 @@ REPRESENTATIVE_CASES = [
 ]
 
 
-def main():
+def test_pruning_simplified():
     results_summary = {
         "baseline": {},
         "pruning": {},
@@ -130,11 +130,8 @@ def main():
     print(f"Max speedup: {max_speedup:.2f}x")
     
     # Save results
-    with open("pruning_results_simplified.json", "w") as f:
+    results_path = "tests/pruning_results_simplified.json"
+    with open(results_path, "w") as f:
         json.dump(results_summary, f, indent=2)
     
-    print("\nResults saved to pruning_results_simplified.json")
-
-
-if __name__ == "__main__":
-    main()
+    print(f"\nResults saved to {results_path}")

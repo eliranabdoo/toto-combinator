@@ -7,7 +7,7 @@ import time
 import pickle
 import multiprocessing
 from pathlib import Path
-from app_testing import MatrixApp
+from app import MatrixApp
 from app_parallel import MatrixAppParallel
 from data_models import CalculationParams, ProcessingMode
 
@@ -24,7 +24,7 @@ REPRESENTATIVE_CASES = [
 ]
 
 
-def test_parallel_configuration(test_case_path, num_workers):
+def _test_parallel_configuration(test_case_path, num_workers, enable_pruning):
     """Test a specific parallel configuration"""
     with open(test_case_path, "rb") as f:
         test_case = pickle.load(f, fix_imports=False)
@@ -37,7 +37,7 @@ def test_parallel_configuration(test_case_path, num_workers):
         mode=test_case.params.mode,
         relaxation=test_case.params.relaxation,
         top_k=test_case.params.top_k,
-        enable_pruning=False,  # Test parallelization without pruning first
+        enable_pruning=enable_pruning,  # Test parallelization without pruning first
         num_workers=num_workers
     )
     
@@ -66,13 +66,13 @@ def test_parallel_configuration(test_case_path, num_workers):
     return avg_time, correctness, stats
 
 
-def main():
+def test_parallel_configuration():
     # Get number of CPU cores
     num_cores = multiprocessing.cpu_count()
     print(f"System has {num_cores} CPU cores available")
     
     # Test different worker configurations
-    worker_configs = [1, 2, 4, min(8, num_cores)]
+    worker_configs = [1, 2, min(8, num_cores)]
     worker_configs = list(set(worker_configs))  # Remove duplicates
     worker_configs.sort()
     
@@ -81,6 +81,15 @@ def main():
     print("\n" + "=" * 80)
     print("TESTING PARALLEL OPTIMIZATION")
     print("=" * 80)
+
+    enable_pruning = True
+
+    if enable_pruning:
+        print("Testing with pruning")
+        results_path = "tests/parallel_optimization_results_pruning.json"
+    else:
+        print("Testing without pruning")
+        results_path = "tests/parallel_optimization_results_no_pruning.json"
     
     for test_case_path in REPRESENTATIVE_CASES:
         case_name = Path(test_case_path).stem
@@ -93,7 +102,7 @@ def main():
         case_results = {}
         
         for num_workers in worker_configs:
-            avg_time, correctness, stats = test_parallel_configuration(test_case_path, num_workers)
+            avg_time, correctness, stats = _test_parallel_configuration(test_case_path, num_workers, enable_pruning)
             
             case_results[num_workers] = {
                 "time": avg_time,
@@ -203,7 +212,7 @@ def main():
     print(f"Max speedup: {max(speedups):.2f}x")
     
     # Save all results
-    with open("parallel_optimization_results.json", "w") as f:
+    with open(results_path, "w") as f:
         # Convert to JSON-serializable format
         json_results = {
             "parallel_only": {},
@@ -224,8 +233,4 @@ def main():
         
         json.dump(json_results, f, indent=2)
     
-    print("\nResults saved to parallel_optimization_results.json")
-
-
-if __name__ == "__main__":
-    main()
+    print(f"\nResults saved to {results_path}")

@@ -1,0 +1,190 @@
+{
+  "parallel_only": {
+    "131_3_ProcessingMode.SEPARATE_0_1": {
+      "1": {
+        "time": 0.04744916666666662,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "2": {
+        "time": 0.4834417666666668,
+        "speedup": 0.09814867050860922,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.2936490333333335,
+        "speedup": 0.03667854684234161,
+        "correctness": true
+      }
+    },
+    "131_3_ProcessingMode.SEPARATE_1_2": {
+      "1": {
+        "time": 0.06238753333333295,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "2": {
+        "time": 0.8020144999999997,
+        "speedup": 0.07778853541093454,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.3161485333333325,
+        "speedup": 0.04740159013460866,
+        "correctness": true
+      }
+    },
+    "131_4_ProcessingMode.SEPARATE_0_2": {
+      "1": {
+        "time": 0.9351491666666677,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "2": {
+        "time": 1.0991934333333333,
+        "speedup": 0.8507594189594119,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.499931233333335,
+        "speedup": 0.6234613600174603,
+        "correctness": true
+      }
+    },
+    "131_4_ProcessingMode.SEPARATE_1_1": {
+      "1": {
+        "time": 0.7970707666666689,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "2": {
+        "time": 1.0958725999999999,
+        "speedup": 0.7273388956587371,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.554090166666666,
+        "speedup": 0.5128857924481233,
+        "correctness": true
+      }
+    },
+    "243_3_ProcessingMode.SEPARATE_0_1": {
+      "1": {
+        "time": 0.20714913333333365,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "2": {
+        "time": 0.6961076999999989,
+        "speedup": 0.2975820168823502,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.225156633333332,
+        "speedup": 0.16907971413396738,
+        "correctness": true
+      }
+    },
+    "243_3_ProcessingMode.SEPARATE_1_2": {
+      "1": {
+        "time": 0.22818366666666398,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "2": {
+        "time": 0.7097914666666654,
+        "speedup": 0.32147986751413615,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.302071899999999,
+        "speedup": 0.17524659480529775,
+        "correctness": true
+      }
+    },
+    "243_4_ProcessingMode.SEPARATE_0_2": {
+      "1": {
+        "time": 7.895275266666668,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "2": {
+        "time": 5.541388633333336,
+        "speedup": 1.424782809704756,
+        "correctness": true
+      },
+      "8": {
+        "time": 3.1874600666666644,
+        "speedup": 2.4769801351341396,
+        "correctness": true
+      }
+    },
+    "243_4_ProcessingMode.SEPARATE_1_1": {
+      "1": {
+        "time": 9.072825200000011,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "2": {
+        "time": 6.155570866666665,
+        "speedup": 1.473921005301184,
+        "correctness": true
+      },
+      "8": {
+        "time": 3.2518846000000017,
+        "speedup": 2.7900206544844814,
+        "correctness": true
+      }
+    }
+  },
+  "combined": {
+    "131_3_ProcessingMode.SEPARATE_0_1": {
+      "baseline_time": 0.04744916666666662,
+      "combined_time": 0.7150193000000039,
+      "speedup": 0.06636067958818224,
+      "pruning_rate": 99.30013020833334
+    },
+    "131_3_ProcessingMode.SEPARATE_1_2": {
+      "baseline_time": 0.06238753333333295,
+      "combined_time": 0.757703066666655,
+      "speedup": 0.08233770731296224,
+      "pruning_rate": 98.8858309659091
+    },
+    "131_4_ProcessingMode.SEPARATE_0_2": {
+      "baseline_time": 0.9351491666666677,
+      "combined_time": 1.2144192999999934,
+      "speedup": 0.7700381298837006,
+      "pruning_rate": 99.43702195146217
+    },
+    "131_4_ProcessingMode.SEPARATE_1_1": {
+      "baseline_time": 0.7970707666666689,
+      "combined_time": 2.040975000000003,
+      "speedup": 0.39053431162393837,
+      "pruning_rate": 99.85652447862108
+    },
+    "243_3_ProcessingMode.SEPARATE_0_1": {
+      "baseline_time": 0.20714913333333365,
+      "combined_time": 1.0350132666666714,
+      "speedup": 0.20014152475597838,
+      "pruning_rate": 99.81764623369337
+    },
+    "243_3_ProcessingMode.SEPARATE_1_2": {
+      "baseline_time": 0.22818366666666398,
+      "combined_time": 1.003661933333338,
+      "speedup": 0.22735112201458696,
+      "pruning_rate": 99.75206901388695
+    },
+    "243_4_ProcessingMode.SEPARATE_0_2": {
+      "baseline_time": 7.895275266666668,
+      "combined_time": 3.8061125999999965,
+      "speedup": 2.0743672340820067,
+      "pruning_rate": 99.95047193774202
+    },
+    "243_4_ProcessingMode.SEPARATE_1_1": {
+      "baseline_time": 9.072825200000011,
+      "combined_time": 3.840435566666656,
+      "speedup": 2.362446926267496,
+      "pruning_rate": 99.98364069197815
+    }
+  }
+}
