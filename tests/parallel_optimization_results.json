@@ -1,0 +1,150 @@
+{
+  "parallel_only": {
+    "131_3_ProcessingMode.SEPARATE_0_1": {
+      "1": {
+        "time": 0.058576799999999984,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.0225523,
+        "speedup": 0.05728489388757913,
+        "correctness": true
+      }
+    },
+    "131_3_ProcessingMode.SEPARATE_1_2": {
+      "1": {
+        "time": 0.0830816333333333,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.1284435666666663,
+        "speedup": 0.07362497849914632,
+        "correctness": true
+      }
+    },
+    "131_4_ProcessingMode.SEPARATE_0_2": {
+      "1": {
+        "time": 1.0545675666666672,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.583112100000001,
+        "speedup": 0.6661357503784264,
+        "correctness": true
+      }
+    },
+    "131_4_ProcessingMode.SEPARATE_1_1": {
+      "1": {
+        "time": 1.579722533333334,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "8": {
+        "time": 2.1409365666666673,
+        "speedup": 0.737865174488978,
+        "correctness": true
+      }
+    },
+    "243_3_ProcessingMode.SEPARATE_0_1": {
+      "1": {
+        "time": 0.41614819999999736,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.4832209333333353,
+        "speedup": 0.2805706086312856,
+        "correctness": true
+      }
+    },
+    "243_3_ProcessingMode.SEPARATE_1_2": {
+      "1": {
+        "time": 0.43598596666666606,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "8": {
+        "time": 1.3673488333333335,
+        "speedup": 0.3188549666611527,
+        "correctness": true
+      }
+    },
+    "243_4_ProcessingMode.SEPARATE_0_2": {
+      "1": {
+        "time": 10.012521166666671,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "8": {
+        "time": 4.341420966666665,
+        "speedup": 2.3062774247285827,
+        "correctness": true
+      }
+    },
+    "243_4_ProcessingMode.SEPARATE_1_1": {
+      "1": {
+        "time": 13.050257600000014,
+        "speedup": 1.0,
+        "correctness": true
+      },
+      "8": {
+        "time": 4.853786633333328,
+        "speedup": 2.688675581736022,
+        "correctness": true
+      }
+    }
+  },
+  "combined": {
+    "131_3_ProcessingMode.SEPARATE_0_1": {
+      "baseline_time": 0.058576799999999984,
+      "combined_time": 0.7273684666666611,
+      "speedup": 0.08053249856766831,
+      "pruning_rate": 99.30013020833334
+    },
+    "131_3_ProcessingMode.SEPARATE_1_2": {
+      "baseline_time": 0.0830816333333333,
+      "combined_time": 0.7549801000000116,
+      "speedup": 0.11004479897328687,
+      "pruning_rate": 98.8858309659091
+    },
+    "131_4_ProcessingMode.SEPARATE_0_2": {
+      "baseline_time": 1.0545675666666672,
+      "combined_time": 1.2474937000000068,
+      "speedup": 0.8453490119161815,
+      "pruning_rate": 99.43702195146217
+    },
+    "131_4_ProcessingMode.SEPARATE_1_1": {
+      "baseline_time": 1.579722533333334,
+      "combined_time": 1.1610770666666685,
+      "speedup": 1.360566476322328,
+      "pruning_rate": 99.85652447862108
+    },
+    "243_3_ProcessingMode.SEPARATE_0_1": {
+      "baseline_time": 0.41614819999999736,
+      "combined_time": 0.8365969333333396,
+      "speedup": 0.4974297459373836,
+      "pruning_rate": 99.81764623369337
+    },
+    "243_3_ProcessingMode.SEPARATE_1_2": {
+      "baseline_time": 0.43598596666666606,
+      "combined_time": 0.9274977333333254,
+      "speedup": 0.47006688102598393,
+      "pruning_rate": 99.75206901388695
+    },
+    "243_4_ProcessingMode.SEPARATE_0_2": {
+      "baseline_time": 10.012521166666671,
+      "combined_time": 3.73766253333334,
+      "speedup": 2.6788189349286324,
+      "pruning_rate": 99.95047193774202
+    },
+    "243_4_ProcessingMode.SEPARATE_1_1": {
+      "baseline_time": 13.050257600000014,
+      "combined_time": 3.7729757333333303,
+      "speedup": 3.458876632760751,
+      "pruning_rate": 99.98364069197815
+    }
+  }
+}

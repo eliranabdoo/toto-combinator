@@ -1,0 +1,242 @@
+{
+  "tests/assets/ground_truths/131_3_ProcessingMode.SEPARATE_0_1.pickle": {
+    "case_name": "131_3_ProcessingMode.SEPARATE_0_1",
+    "execution_time": 0.0463457816670901,
+    "min_time": 0.04595108099965728,
+    "max_time": 0.04660760400292929,
+    "all_times": [
+      0.04595108099965728,
+      0.04660760400292929,
+      0.046478659998683725
+    ],
+    "stats": {
+      "combinations": 1728,
+      "total_choices": 67584,
+      "max_choices_per_combination": 343,
+      "combinations_time_s": 0.0456390539984568,
+      "max_choices_time": 0.00024151799880200997,
+      "average_choices_per_combination": 39.111111111111114
+    },
+    "matrix_shape": [
+      53,
+      12
+    ],
+    "params": {
+      "n": 3,
+      "mode": "\u05e0\u05e4\u05e8\u05d3",
+      "relaxation": 0,
+      "top_k": 1
+    },
+    "num_results": 1
+  },
+  "tests/assets/ground_truths/131_3_ProcessingMode.SEPARATE_1_2.pickle": {
+    "case_name": "131_3_ProcessingMode.SEPARATE_1_2",
+    "execution_time": 0.06430751899946092,
+    "min_time": 0.0627125259998138,
+    "max_time": 0.06712104300095234,
+    "all_times": [
+      0.0627125259998138,
+      0.06712104300095234,
+      0.06308898799761664
+    ],
+    "stats": {
+      "combinations": 1728,
+      "total_choices": 67584,
+      "max_choices_per_combination": 343,
+      "combinations_time_s": 0.0623167209996609,
+      "max_choices_time": 0.0003466480011411477,
+      "average_choices_per_combination": 39.111111111111114
+    },
+    "matrix_shape": [
+      53,
+      12
+    ],
+    "params": {
+      "n": 3,
+      "mode": "\u05e0\u05e4\u05e8\u05d3",
+      "relaxation": 1,
+      "top_k": 2
+    },
+    "num_results": 2
+  },
+  "tests/assets/ground_truths/131_4_ProcessingMode.SEPARATE_0_2.pickle": {
+    "case_name": "131_4_ProcessingMode.SEPARATE_0_2",
+    "execution_time": 0.7694661456662288,
+    "min_time": 0.7646383510000305,
+    "max_time": 0.7744776409999758,
+    "all_times": [
+      0.7692824449986801,
+      0.7744776409999758,
+      0.7646383510000305
+    ],
+    "stats": {
+      "combinations": 20736,
+      "total_choices": 1025262,
+      "max_choices_per_combination": 2401,
+      "combinations_time_s": 0.7688737809985469,
+      "max_choices_time": 0.0041559040000720415,
+      "average_choices_per_combination": 49.443576388888886
+    },
+    "matrix_shape": [
+      53,
+      12
+    ],
+    "params": {
+      "n": 4,
+      "mode": "\u05e0\u05e4\u05e8\u05d3",
+      "relaxation": 0,
+      "top_k": 2
+    },
+    "num_results": 2
+  },
+  "tests/assets/ground_truths/131_4_ProcessingMode.SEPARATE_1_1.pickle": {
+    "case_name": "131_4_ProcessingMode.SEPARATE_1_1",
+    "execution_time": 0.9204997336661714,
+    "min_time": 0.9191790520017094,
+    "max_time": 0.9212124679979752,
+    "all_times": [
+      0.9191790520017094,
+      0.9211076809988299,
+      0.9212124679979752
+    ],
+    "stats": {
+      "combinations": 20736,
+      "total_choices": 1025262,
+      "max_choices_per_combination": 2401,
+      "combinations_time_s": 0.9187151369987987,
+      "max_choices_time": 0.002217216999270022,
+      "average_choices_per_combination": 49.443576388888886
+    },
+    "matrix_shape": [
+      53,
+      12
+    ],
+    "params": {
+      "n": 4,
+      "mode": "\u05e0\u05e4\u05e8\u05d3",
+      "relaxation": 1,
+      "top_k": 1
+    },
+    "num_results": 1
+  },
+  "tests/assets/ground_truths/243_3_ProcessingMode.SEPARATE_0_1.pickle": {
+    "case_name": "243_3_ProcessingMode.SEPARATE_0_1",
+    "execution_time": 0.20998790300048617,
+    "min_time": 0.20932391799942707,
+    "max_time": 0.210805861002882,
+    "all_times": [
+      0.210805861002882,
+      0.20932391799942707,
+      0.2098339299991494
+    ],
+    "stats": {
+      "combinations": 13824,
+      "total_choices": 285160,
+      "max_choices_per_combination": 216,
+      "combinations_time_s": 0.21026436800093506,
+      "max_choices_time": 0.00019853199773933738,
+      "average_choices_per_combination": 20.62789351851852
+    },
+    "matrix_shape": [
+      54,
+      24
+    ],
+    "params": {
+      "n": 3,
+      "mode": "\u05e0\u05e4\u05e8\u05d3",
+      "relaxation": 0,
+      "top_k": 1
+    },
+    "num_results": 1
+  },
+  "tests/assets/ground_truths/243_3_ProcessingMode.SEPARATE_1_2.pickle": {
+    "case_name": "243_3_ProcessingMode.SEPARATE_1_2",
+    "execution_time": 0.3210009003341838,
+    "min_time": 0.3203615400016133,
+    "max_time": 0.32133408099980443,
+    "all_times": [
+      0.3203615400016133,
+      0.32133408099980443,
+      0.3213070800011337
+    ],
+    "stats": {
+      "combinations": 13824,
+      "total_choices": 285160,
+      "max_choices_per_combination": 216,
+      "combinations_time_s": 0.31968847600001027,
+      "max_choices_time": 0.00023282199981622398,
+      "average_choices_per_combination": 20.62789351851852
+    },
+    "matrix_shape": [
+      54,
+      24
+    ],
+    "params": {
+      "n": 3,
+      "mode": "\u05e0\u05e4\u05e8\u05d3",
+      "relaxation": 1,
+      "top_k": 2
+    },
+    "num_results": 2
+  },
+  "tests/assets/ground_truths/243_4_ProcessingMode.SEPARATE_0_2.pickle": {
+    "case_name": "243_4_ProcessingMode.SEPARATE_0_2",
+    "execution_time": 6.165298563333636,
+    "min_time": 6.132361383999523,
+    "max_time": 6.195030691000284,
+    "all_times": [
+      6.195030691000284,
+      6.1685036150011,
+      6.132361383999523
+    ],
+    "stats": {
+      "combinations": 331776,
+      "total_choices": 7775390,
+      "max_choices_per_combination": 1296,
+      "combinations_time_s": 6.194328223999037,
+      "max_choices_time": 0.0013897399985580705,
+      "average_choices_per_combination": 23.435661410108025
+    },
+    "matrix_shape": [
+      54,
+      24
+    ],
+    "params": {
+      "n": 4,
+      "mode": "\u05e0\u05e4\u05e8\u05d3",
+      "relaxation": 0,
+      "top_k": 2
+    },
+    "num_results": 2
+  },
+  "tests/assets/ground_truths/243_4_ProcessingMode.SEPARATE_1_1.pickle": {
+    "case_name": "243_4_ProcessingMode.SEPARATE_1_1",
+    "execution_time": 8.51000398533506,
+    "min_time": 8.42363880600169,
+    "max_time": 8.616545352000685,
+    "all_times": [
+      8.489827798002807,
+      8.616545352000685,
+      8.42363880600169
+    ],
+    "stats": {
+      "combinations": 331776,
+      "total_choices": 7775390,
+      "max_choices_per_combination": 1296,
+      "combinations_time_s": 8.489002066999092,
+      "max_choices_time": 0.0018458390004525427,
+      "average_choices_per_combination": 23.435661410108025
+    },
+    "matrix_shape": [
+      54,
+      24
+    ],
+    "params": {
+      "n": 4,
+      "mode": "\u05e0\u05e4\u05e8\u05d3",
+      "relaxation": 1,
+      "top_k": 1
+    },
+    "num_results": 1
+  }
+}

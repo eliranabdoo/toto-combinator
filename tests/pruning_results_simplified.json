@@ -1,0 +1,32 @@
+{
+  "baseline": {
+    "131_3_ProcessingMode.SEPARATE_0_1": 0.0600832,
+    "131_3_ProcessingMode.SEPARATE_1_2": 0.07516260000000008,
+    "131_4_ProcessingMode.SEPARATE_0_2": 0.9842339666666668,
+    "131_4_ProcessingMode.SEPARATE_1_1": 1.1624099,
+    "243_3_ProcessingMode.SEPARATE_0_1": 0.29760656666666446,
+    "243_3_ProcessingMode.SEPARATE_1_2": 0.4908829666666665,
+    "243_4_ProcessingMode.SEPARATE_0_2": 9.1361732,
+    "243_4_ProcessingMode.SEPARATE_1_1": 13.312592733333332
+  },
+  "pruning": {
+    "131_3_ProcessingMode.SEPARATE_0_1": 0.040763733333333274,
+    "131_3_ProcessingMode.SEPARATE_1_2": 0.040976866666666556,
+    "131_4_ProcessingMode.SEPARATE_0_2": 0.7058248666666668,
+    "131_4_ProcessingMode.SEPARATE_1_1": 0.7404109666666662,
+    "243_3_ProcessingMode.SEPARATE_0_1": 0.20984346666666673,
+    "243_3_ProcessingMode.SEPARATE_1_2": 0.27797013333333237,
+    "243_4_ProcessingMode.SEPARATE_0_2": 6.7555438000000025,
+    "243_4_ProcessingMode.SEPARATE_1_1": 7.983082966666662
+  },
+  "speedups": {
+    "131_3_ProcessingMode.SEPARATE_0_1": 1.4739376177517292,
+    "131_3_ProcessingMode.SEPARATE_1_2": 1.8342690916663618,
+    "131_4_ProcessingMode.SEPARATE_0_2": 1.3944450148304022,
+    "131_4_ProcessingMode.SEPARATE_1_1": 1.5699522999141615,
+    "243_3_ProcessingMode.SEPARATE_0_1": 1.418231272071997,
+    "243_3_ProcessingMode.SEPARATE_1_2": 1.7659557909338994,
+    "243_4_ProcessingMode.SEPARATE_0_2": 1.3523964125582306,
+    "243_4_ProcessingMode.SEPARATE_1_1": 1.6676004482128048
+  }
+}

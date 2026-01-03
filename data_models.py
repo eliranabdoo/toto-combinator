@@ -13,6 +13,8 @@ class CalculationParams:
     mode: ProcessingMode
     relaxation: int
     top_k: int
+    enable_pruning: bool = False  # Flag to enable pruning optimization
+    num_workers: int = 1  # Number of parallel workers (1 = no parallelization)
 
 
 @dataclass
